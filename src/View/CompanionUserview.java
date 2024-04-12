@@ -64,7 +64,7 @@ public class CompanionUserview extends JFrame implements UserprofileViewInterfac
           @Override
           public void actionPerformed(ActionEvent e) 
           {
-             new ChatGUI();
+             new ChatPanel(userProfile.getUserName());
           }
            
         });
