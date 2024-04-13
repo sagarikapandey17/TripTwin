@@ -1,3 +1,4 @@
+// the class contains the back End Logic to define the list of Groups associated with a User. The groups are polulated in the User Interface for user to perform opeartions.
 package Controller;
 import java.sql.*;
 import java.util.ArrayList;
