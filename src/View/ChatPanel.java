@@ -1,3 +1,5 @@
+// defines the interface components for 'My Chats' section on the UserProfile page. Loads messages from all other users as hyperlinks on the Window frame.
+
 package View;
 import javax.swing.*;
 
@@ -63,8 +65,9 @@ String receiver;
         chatPanel.add(sentMessageLabel);
 
     }
-     private String retrieveUserID() 
-{
+     
+    private String retrieveUserID() 
+    {
         // Retrieve the user ID from preferences (or any other storage mechanism)
         Preferences prefs = Preferences.userNodeForPackage(Login.class);
         return prefs.get("userID", ""); // Return the user ID

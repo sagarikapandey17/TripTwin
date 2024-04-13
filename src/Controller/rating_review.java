@@ -1,17 +1,30 @@
+// the class defines the backend logic to handle the Review rating for the user. When another user rates a userprofile, the ratings are inserted into the dB
 package Controller;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class rating_review {
-        private int ratingsTotal = 0;
-        private int ratingsCount = 0;
-        private double rating;
-        private String feedback;
-        private String raterUsername; // Email ID as the identifier of the user being rated
-        private String username;
+public class rating_review 
+{   
+   private Connection connection; 
+    public  rating_review() {
+        try {
+            // Connect to  database
+           connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/final_project", "spandey", "Project@2024");
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+    }
+    private int ratingsTotal = 0;
+    private int ratingsCount = 0;
+    private double rating;
+    private String feedback;
+    private String raterUsername; // Email ID as the identifier of the user being rated
+    private String username;
+        
         
         public rating_review(String raterUsername, String username) 
         {
@@ -71,17 +84,12 @@ public class rating_review {
 // Method to update the database with rating and feedback
     public void updateDatabase() {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
             
-            String url = "jdbc:mysql://localhost/final_project?";
-            String Username = "spandey";
-            String dbPassword = "Project@2024";
-            Connection connection = DriverManager.getConnection(url, Username, dbPassword);
 
             String sql = "INSERT INTO final_project.ratings (raterUsername, Username, rating, feedback) VALUES (?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, raterUsername); // Assuming you have the email ID of the rater
-            statement.setString(2, username); // Assuming you have the email ID of the rated user
+            statement.setString(1, raterUsername); 
+            statement.setString(2, username); 
             statement.setDouble(3, rating);
             statement.setString(4, feedback);
 
@@ -94,7 +102,7 @@ public class rating_review {
 
             statement.close();
             connection.close();
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch ( SQLException ex) {
             ex.printStackTrace();
             System.out.println("Error: Database update failed.");
         }

@@ -1,3 +1,5 @@
+// the class defines the interface for Companion Finder page. It loads all Trips associated with aUSer into dropdown and aListener is activated to find a companion.
+
 package View;
 import javax.swing.*;
 
@@ -74,7 +76,7 @@ class CompanionFinderGUI extends JFrame
         {
             finder=new CompanionFinder();
             ArrayList<String>companions=finder.findCompanion(getSelectedTrip(),retrieveUserID());
-
+            System.out.println(companions);
             for (String companion : companions) {
             JLabel hyperlink = new JLabel(companion);
             hyperlink.setForeground(Color.BLUE);
@@ -86,13 +88,14 @@ class CompanionFinderGUI extends JFrame
                 @Override
                 public void mouseClicked(MouseEvent e) 
                 {
-                    JLabel clickedLabel = (JLabel) e.getSource();
-                    String labelText = clickedLabel.getText();
-                    UserProfileLogic up=new UserProfileLogic();
-                    User userprofile=up.getUserProfile(labelText);
-                    saveReceiverUserID(labelText);
-                    CompanionUserview companionGUI=new CompanionUserview();
-                    companionGUI.display(userprofile);
+                    
+                        JLabel clickedLabel = (JLabel) e.getSource();
+                        String labelText = clickedLabel.getText();
+                        UserProfileLogic up = new UserProfileLogic();
+                        User userprofile = up.getUserProfile(labelText);
+                        saveReceiverUserID(labelText);
+                        CompanionUserview companionGUI = new CompanionUserview();
+                        companionGUI.display(userprofile);
                     
                 }
             });
@@ -101,11 +104,12 @@ class CompanionFinderGUI extends JFrame
             companionsPanel.add(Box.createVerticalStrut(5));
         }
 
-        // Refresh the UI
-        companionsPanel.removeAll();
+        companionsPanel.revalidate();
+        companionsPanel.repaint();
+        
     }
 
-    // Method to open user profile window
+    
     
 
     // Method to add action listener to trips dropdown

@@ -1,3 +1,4 @@
+// the class reterives all Groups created and stored in the database in order for user to select one of them if they need to join a Group.
 package Controller;
 import java.sql.*;
 import java.util.ArrayList;
@@ -6,7 +7,7 @@ import java.util.List;
 public class ViewAllGroups 
 {
   private Connection connection;
-    
+    //establish Connection
         public ViewAllGroups() {
             try 
             {
@@ -32,7 +33,7 @@ public class ViewAllGroups
                 while (resultSet.next()) 
                 {
                     String groupName = resultSet.getString("group_name");
-                    userGroups.add(groupName);
+                    userGroups.add(groupName);// add groups to ArrayList from DB.
                 }
                 statement.close();
             } catch (SQLException e) {

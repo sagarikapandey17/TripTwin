@@ -1,15 +1,12 @@
+// this class defines the backend logic to connect to DB to retreive USer Ratings provided by other users.
 package Controller;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
-
 import javax.swing.table.DefaultTableModel;
-
-import com.mysql.cj.jdbc.result.ResultSetMetaData;
 
 public class RatingFeedbackData {
     public DefaultTableModel getRatingFeedbackData(String username) {

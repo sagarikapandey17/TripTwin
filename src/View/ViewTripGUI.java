@@ -1,12 +1,11 @@
+// The interface defines the Action the "View Trips" button on Userprofile. Displays all trips in otder to find a Companion for them
 package View;
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
-
 import Controller.CompanionFinder;
 import Controller.TripDetails;
 import Controller.ViewTrip;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

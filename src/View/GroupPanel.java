@@ -1,3 +1,4 @@
+// defines the User Interface for "View Groups" button on UserProfilePage. Enables them to view to go to any page chosen
 package View;
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;

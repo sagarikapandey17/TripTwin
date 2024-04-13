@@ -1,3 +1,4 @@
+// defines the interface components for 'My Chats' section on the UserProfile page. Loads messages from all other users as hyperlinks on the Window frame.
 package View;
 import javax.swing.*;
 import javax.swing.event.*;
@@ -22,8 +23,8 @@ public class ChatGUI extends JFrame
         setTitle("Chat");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        initComponents();
-        loadUsernames();
+        initComponents(); // load Components
+        loadUsernames(); //load messages into Components
 
         setLocationRelativeTo(null);
         setVisible(true);
@@ -34,21 +35,24 @@ public class ChatGUI extends JFrame
         Preferences prefs = Preferences.userNodeForPackage(Login.class);
         return prefs.get("userID", ""); // Return the user ID
     }
+    //define GUI components for the page
     private void initComponents() 
     {
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel mainPanel = new JPanel(new BorderLayout()); //container Panel
         chatPane = new JTextPane();
         chatPane.setContentType("text/html");
         chatPane.setEditable(false);
+        // add ClickListener to load messgaed after User clicks on Usermessage
         chatPane.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) 
             {
-                handleHyperlinkClick(e);
+                handleHyperlinkClick(e);// method to call after clicking the message Hyperlink. Loads messgae for the thread
             }
 
             private void handleHyperlinkClick(MouseEvent e) 
             {
                 loadMessagesForUser(username);
+                //retreive all messges received from the clicked
             }
          });
 
@@ -58,24 +62,24 @@ public class ChatGUI extends JFrame
         JPanel messagePanel = new JPanel(new BorderLayout());
         messageField = new JTextField();
         messagePanel.add(messageField, BorderLayout.CENTER);
-
+       //Action Listener for sendMessgae button opn Panel
         sendButton = new JButton("Send");
         sendButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) 
+            {
                 sendMessage();
             }
         });
-        messagePanel.add(sendButton, BorderLayout.EAST);
+        messagePanel.add(sendButton, BorderLayout.EAST);//add sent Messages to window
 
         mainPanel.add(messagePanel, BorderLayout.SOUTH);
        add(mainPanel);
     }
     private void loadMessagesForUser(String username2) 
     {
-        StringBuilder messages = new StringBuilder();
+        StringBuilder messages = new StringBuilder();// define Strinbuilder to append all messages to window
         String messageDetails=null;
-        chatDatabase=new ChatService();
-        System.out.println(username);
+        chatDatabase=new ChatService();// call backend service to retreive Messages
         try 
         {
             messageDetails = chatDatabase.getMessageDetails(username2,retrieveUserID()) ;
@@ -84,20 +88,20 @@ public class ChatGUI extends JFrame
         {
             e.printStackTrace();
         }
-        if (messageDetails != null) 
+        if (messageDetails != null) //apeend message to StrinBuilder messagedetails
             {
                 messages.append(messageDetails);
                             
             }
             
-            chatPane.setText(messages.toString());
+            chatPane.setText(messages.toString());// add messages to Pane
         }   
         
-    private void loadUsernames() 
+    private void loadUsernames()  // the method loads all the Usernames as hyperlink who sre the sender of a messgae into the Panel
     {
         StringBuilder htmlContent = new StringBuilder();
         htmlContent.append("<html><body>");
-        chatDatabase=new ChatService();
+        chatDatabase=new ChatService();// call backend to reteriveusername details
         ResultSet resultSet = chatDatabase.getMessages(retrieveUserID());
         if (resultSet != null) 
         {

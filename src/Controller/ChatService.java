@@ -1,21 +1,23 @@
+//the class defines methods to operate the Chat functionality. The class contains the methods and the backend operations needed  to send Messages to user and retreive messages fot them.
 package Controller;
 import java.sql.*;
-
-public class ChatService {
+public class ChatService 
+{
     private Connection connection;
-   
-    private void connectToDatabase() {
+    private void connectToDatabase() 
+    {
         try {
-            // Connect to your database
+            // Connect to  database
             String url = "jdbc:mysql://localhost:3306/final_project";
             String user = "spandey";
             String password = "Project@2024";
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
-
+//send Message to user. JDBC operations
     public void sendMessage(String loggedInUser,String receiver, String messageText) {
         try {
             connectToDatabase();
@@ -28,9 +30,11 @@ public class ChatService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
     }
-
-    public ResultSet getMessages(String loggedInUser) {
+//load messages for a particular user
+    public ResultSet getMessages(String loggedInUser) 
+    {
         try {
             connectToDatabase();
             String sql = "SELECT senderUsername,message_content FROM final_project.messages WHERE receiverUsername = ? OR senderUsername = ?";
@@ -43,6 +47,7 @@ public class ChatService {
             return null;
         }
     }
+    //load Message thread
     public String getMessageDetails(String Username, String loggedInUser) throws SQLException {
         ResultSet rs=null;
         String messageDetails=null;
@@ -58,7 +63,8 @@ public class ChatService {
             System.out.println("executed");
             
             
-        } catch (SQLException e) {
+        } catch (SQLException e) 
+        {
             e.printStackTrace();
             
         }
@@ -70,7 +76,6 @@ public class ChatService {
            messageDetails=(senderName+":"+"\n" +message+"/n");
            
         }
-        System.out.println(messageDetails);
         return messageDetails;
     }
 }

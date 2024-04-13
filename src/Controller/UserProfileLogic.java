@@ -1,3 +1,4 @@
+// the class defines the retreival logic for user details to load into the userprofile of the Users. The method returns USer details which are used in user Profile
 package Controller;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,7 +12,7 @@ public class UserProfileLogic
 {
     private String url = "jdbc:mysql://localhost:3306/final_project";
     private String user = "spandey";
-    private String password = "Project@2024";
+    private String password = "Project@2024";//establish DB Connection.
     private Connection con;
     public UserProfileLogic()
     {
@@ -23,7 +24,7 @@ public class UserProfileLogic
                 e.printStackTrace();
             }
     }
-    public User getUserProfile(String username)
+    public User getUserProfile(String username)// method to retreive details. Take s usernameas input to diffrenetiate users.
     {
         User userProfile=null;
         String query = "SELECT Username,First_Name,Last_Name,email,age,bio,Address FROM final_project.users WHERE Username = ?";

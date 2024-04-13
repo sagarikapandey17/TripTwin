@@ -1,5 +1,5 @@
+// this class defines the backend logic to Search memeber via a Search Panel GUI. when the Event is activated, the backend logic is used to determine members.
 package Controller;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ import java.util.List;
 public class SearchMember 
 { 
     private Connection connection;
-    public SearchMember()
+    public SearchMember()//establish connection
     {
 
     try {
@@ -20,7 +20,8 @@ public class SearchMember
             e.printStackTrace();
         }
     }
-    public List<String> searchMembers(String firstName) {
+    //method to find uSers. Takes input from searchPanel to find similar users.
+public List<String> searchMembers(String firstName) {
         List<String> searchResults = new ArrayList<>();
         try {
             String selectQuery = "SELECT First_Name, Last_Name,Username FROM final_project.users WHERE First_Name LIKE ?";

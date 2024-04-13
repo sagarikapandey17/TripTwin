@@ -1,3 +1,4 @@
+//the class defines the methods to post nad reterive updates to the group in form of texts. A connection is formed to the database and the post is inserted and associated  with the group and user.
 package Controller;
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ public class GroupPosts {
 
     public void connect() {
         try {
-            // Connect to your database
+            // Connect to  database
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/final_project", "spandey", "Project@2024");
         } 
         catch (SQLException e) 
@@ -21,7 +22,7 @@ public class GroupPosts {
     {
         try 
         {
-            // Insert the post into your database
+            // Insert the post into  database
             PreparedStatement statement = connection.prepareStatement("INSERT INTO final_project.GroupPosts (Username,group_name,post_text) VALUES (?,?,?)");
             statement.setString(1, username);
             statement.setString(2, groupname);
@@ -38,7 +39,7 @@ public class GroupPosts {
     {
         List<String> posts = new ArrayList<>();
         try {
-            // Retrieve posts from your database
+            // Retrieve posts from  database
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery("SELECT post_text,Username FROM final_project.GroupPosts");
              while (resultSet.next()) 

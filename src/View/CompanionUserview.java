@@ -1,3 +1,4 @@
+// this class implements the UserProfileViewInterface to define the page for other users when they click on a userprofile. The retrictions are placed for Logged in User to certain actions in this way
 package View;
 
 import java.awt.BorderLayout;
@@ -23,6 +24,7 @@ import Model.User;
 
 public class CompanionUserview extends JFrame implements UserprofileViewInterface
 {
+  //components
     private JLabel firstNameLabel;
     private JLabel lastNameLabel;
     private JLabel emailLabel;
@@ -36,12 +38,12 @@ public class CompanionUserview extends JFrame implements UserprofileViewInterfac
     public void display(User userprofile)
     {
       this.userProfile = userprofile;
-
+//mainPanel
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
         JPanel profilePanel = new JPanel(new GridLayout(6, 1, 10, 10));
-
+//Userprofile details
         firstNameLabel = new JLabel("Name: " + userProfile.getFirstName());
         profilePanel.add(firstNameLabel);
 
@@ -54,31 +56,31 @@ public class CompanionUserview extends JFrame implements UserprofileViewInterfac
         bioLabel = new JLabel("Bio: " + userProfile.getBio());
         bioLabel.setVerticalAlignment(SwingConstants.TOP);
         profilePanel.add(bioLabel);
-     
+ //Chat Button to enable communication    
         JPanel buttonJPanel=new JPanel(new GridLayout(2,1));
         chaButton=new JButton("Chat");
         buttonJPanel.add(chaButton);
-        chaButton.addActionListener(new ActionListener()
+        chaButton.addActionListener(new ActionListener()// ActionEvent for Chat Button
          {
 
           @Override
           public void actionPerformed(ActionEvent e) 
           {
-             new ChatPanel(userProfile.getUserName());
+             new ChatPanel(userProfile.getUserName());//chatPanel is opened to eneble user to send messages
           }
            
         });
-
+//Rate Button
         JButton rateUserButton=new JButton("Rate User");
         buttonJPanel.add(rateUserButton);
-        rateUserButton.addActionListener(new ActionListener() {
+        rateUserButton.addActionListener(new ActionListener() {// the rating page is opened to enabled Logged in user to rate the other users.
 
           @Override
           public void actionPerformed(ActionEvent e) {
             new UserRatingGUI(userProfile.getUserName());
           }
         });
-
+//view Rating to enable user to View Ratings given by other users
         JButton viewRatings=new JButton("View Ratings");
         buttonJPanel.add(viewRatings);
         viewRatings.addActionListener(new ActionListener() {
@@ -90,6 +92,8 @@ public class CompanionUserview extends JFrame implements UserprofileViewInterfac
             
           }
         });
+
+        // Load Profile Picture of the User
         JPanel picturePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         profilePictureLabel = new JLabel();
         picturePanel.add(profilePictureLabel);
@@ -106,7 +110,7 @@ public class CompanionUserview extends JFrame implements UserprofileViewInterfac
 
 
     }
-    private void setProfilePicture() 
+    private void setProfilePicture() //call backend JDBC code to retreive picture
     {
            getPicture=new getProfilePicture();
            ImageIcon icon =getPicture.setProfilePicture(userProfile.getUserName());

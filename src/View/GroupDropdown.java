@@ -1,3 +1,4 @@
+// the class defines the interface for the Group Dropdown. Enables users to select a Group from the dropdown to join
 package View;
 import Controller.AddGroupMemeber;
 import Controller.ViewAllGroups;
@@ -18,30 +19,29 @@ public class GroupDropdown extends JFrame {
         setSize(300, 150);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
-        ViewAllGroups viewgroups = new ViewAllGroups();
+        ViewAllGroups viewgroups = new ViewAllGroups();//call JDBC Code
          new  ViewAllGroups();
-        ArrayList<String> groupList = viewgroups.getUserGroups();
+        ArrayList<String> groupList = viewgroups.getUserGroups(); //insert groupd retreived from DB into ArrayList
         setVisible(true);
-
+        //Groupdropdown
         groupDropdown = new JComboBox<>();
         groupDropdown.setModel(new DefaultComboBoxModel<>(groupList.toArray(new String[0])));
         add(groupDropdown, BorderLayout.CENTER);
-
+        //button to generate event for the selected Group to join from dropdown
         joinGroupButton=new JButton("Join");
         add(joinGroupButton,BorderLayout.PAGE_END);
-
         joinGroupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Action to perform when an item is selected
-                String selectedGroup = (String) groupDropdown.getSelectedItem();
-                AddGroupMemeber memeber=new AddGroupMemeber();
+                String selectedGroup = (String) groupDropdown.getSelectedItem(); // retreive selected groupname
+                AddGroupMemeber memeber=new AddGroupMemeber(); //call JDBC code to add the memeber in to DB
                 memeber.addMember(selectedGroup,retrieveUserID());
                 JOptionPane.showMessageDialog(null,"You are now added to the group!");
             }
         });
         
-        groupDropdown.setVisible(true);
+        groupDropdown.setVisible(true);//setVisible
         groupDropdown.setPopupVisible(true);
         
     }

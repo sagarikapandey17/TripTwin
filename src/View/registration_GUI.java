@@ -1,5 +1,5 @@
+// defines the user interface of the Registration Page for the user.
 package View;
-
 import javax.swing.*;
 import Controller.registration;
 import java.awt.*;
@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class registration_GUI extends JFrame {
     private registration registration;
-
+//Define Components and TextFields
     private JLabel firstNamelabel = new JLabel("First Name");
     private JTextField firstNamewfield = new JTextField(20);
 
@@ -38,7 +38,7 @@ public class registration_GUI extends JFrame {
     private JButton registerButton = new JButton("Click to register");
 
     private JTextField output = new JTextField(20);
-
+// load components in to layout 
     public registration_GUI() {
         // Setting layout to GridBagLayout
         getContentPane().setLayout(new GridBagLayout());
@@ -102,7 +102,7 @@ public class registration_GUI extends JFrame {
 
     private class RegisterAction implements ActionListener {
         public void actionPerformed(ActionEvent e) 
-        {
+        {  // retreive user entered info into fields to call JDBC code to add a new user
             String firstName = firstNamelabel.getText();
             String lastName = lastNamefield.getText();
             String emailId = emailTextfield.getText();
@@ -119,6 +119,7 @@ public class registration_GUI extends JFrame {
                 else
                 {
                     try {
+                        //call JDBC code
                         registration=new registration();
                         registration.Registration(firstName, lastName, emailId, username, password, age, gender, address);
                     } catch (ClassNotFoundException e1) {
@@ -133,7 +134,7 @@ public class registration_GUI extends JFrame {
             }
         }
     
-
+// validate the correct email format
     public static boolean isValid(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
                 "[a-zA-Z0-9_+&*-]+)*@" +

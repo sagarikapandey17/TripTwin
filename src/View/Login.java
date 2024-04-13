@@ -61,7 +61,7 @@ public void LoginPage()
         frame.add(panel, BorderLayout.CENTER);
 
         // Load image and add to the frame
-        ImageIcon image = new ImageIcon("Main_Page.jpg");
+        ImageIcon image = new ImageIcon("/Users/sagarikapandey/Documents/LabAssignments/Final project/OIP.jpg");
         Image scaledImage = image.getImage().getScaledInstance(500, 500, Image.SCALE_SMOOTH); // Smaller image size
         image = new ImageIcon(scaledImage);
         JLabel imageLabel = new JLabel(image);

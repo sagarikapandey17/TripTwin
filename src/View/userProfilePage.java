@@ -1,3 +1,4 @@
+// defines the UserProfile page view for the Logged in user. Contains basic info and the buttons to perform certain user Action line Update Trips, Add Trips, Create and Join Groups, Upload Picture, View Chats.
 package View;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -19,7 +20,7 @@ import Controller.savePicture;
 
 import java.util.List;
 public class userProfilePage extends JFrame implements UserprofileViewInterface
-{
+{ //define Components
     private JLabel firstNameLabel;
     private JLabel lastNameLabel;
     private JLabel bioLabel;
@@ -29,13 +30,13 @@ public class userProfilePage extends JFrame implements UserprofileViewInterface
     private JButton addTripButton;
     private JButton viewTripButton;
     private JButton logOffButton;
-    private boolean logOff=false;
     private JButton createGroupButton;
     private JButton viewGroupsButton;
-    private JLabel profilePictureLabel; // Added JLabel for profile picture
+    private JLabel profilePictureLabel; 
     private JButton choosePictureButton;
     private JButton myChatsButton;
     private JButton joinGroups;
+    private JButton editTrips;
     private JTextField searchField;
     private JButton searchButton;
     private User userprofile;
@@ -53,7 +54,7 @@ public class userProfilePage extends JFrame implements UserprofileViewInterface
     {
        
         this.userprofile = userProfile;
-
+//Outer container
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
@@ -70,7 +71,7 @@ public class userProfilePage extends JFrame implements UserprofileViewInterface
         mainPanel.add(searchPanel, BorderLayout.NORTH);
         firstNameLabel = new JLabel("Name: " + userProfile.getFirstName());
         profilePanel.add(firstNameLabel);
-
+// define Components for User details
         lastNameLabel = new JLabel("Name: " + userProfile.getLastName());
         profilePanel.add(lastNameLabel);
 
@@ -92,13 +93,13 @@ public class userProfilePage extends JFrame implements UserprofileViewInterface
         JPanel picturePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         profilePictureLabel = new JLabel();
         picturePanel.add(profilePictureLabel);
-
+// profile picture button
         choosePictureButton = new JButton("Choose Picture");
         choosePictureButton.addActionListener(new ChoosePictureActionListener());
         picturePanel.add(choosePictureButton);
 
         mainPanel.add(picturePanel, BorderLayout.NORTH);
-
+// panle to Hold all the buttons
         JPanel buttonPanel=new JPanel(new GridLayout(5, 1, 10, 10));
         addTripButton=new JButton("Add Trip");
         addTripButton.addActionListener(new ButtonAction());
@@ -129,6 +130,12 @@ public class userProfilePage extends JFrame implements UserprofileViewInterface
         joinGroups.addActionListener(new myReviewsAction());
         buttonPanel.add(joinGroups);
 
+        editTrips=new JButton("Edit Trips");
+        editTrips.addActionListener(new EditActionListener());
+        buttonPanel.add(editTrips);
+
+
+
         mainPanel.add(buttonPanel,BorderLayout.EAST);
         add(mainPanel);
         getPicture=new getProfilePicture();
@@ -140,7 +147,7 @@ public class userProfilePage extends JFrame implements UserprofileViewInterface
     }
 
     
-
+// call JDBC code to reterive and set the Profile picture
     private void setProfilePicture() 
     {
            getPicture=new getProfilePicture();
@@ -153,8 +160,9 @@ public class userProfilePage extends JFrame implements UserprofileViewInterface
            }
             
         }
-    
-    private class ChoosePictureActionListener implements ActionListener {
+   // call JDBC code to insert a new Picture uploaded by a User
+    private class ChoosePictureActionListener implements ActionListener 
+    {
         public void actionPerformed(ActionEvent e) {
             JFileChooser fileChooser = new JFileChooser();
             int returnValue = fileChooser.showOpenDialog(userProfilePage.this);
@@ -169,6 +177,7 @@ public class userProfilePage extends JFrame implements UserprofileViewInterface
             }
         }
     }
+    // Button Action Add Trip button
     private class ButtonAction  implements ActionListener 
 { 
     public void actionPerformed(ActionEvent e) 
@@ -176,7 +185,15 @@ public class userProfilePage extends JFrame implements UserprofileViewInterface
        new AddTripPage();
     }
 }  
-
+// Button Action for edit Trips
+private class EditActionListener implements ActionListener 
+{ 
+    public void actionPerformed(ActionEvent e) 
+    {
+       new TripSelectionPage();
+    }
+}  
+//Button Action for Mychats
 private class myChatsAction implements ActionListener 
 { 
     public void actionPerformed(ActionEvent e) 
@@ -184,7 +201,7 @@ private class myChatsAction implements ActionListener
        new ChatGUI();
     }
 }  
-
+//Button Action for MyReviews
 private class myReviewsAction implements ActionListener 
 { 
     public void actionPerformed(ActionEvent e) 
@@ -192,7 +209,7 @@ private class myReviewsAction implements ActionListener
        new GroupDropdown();
     }
 }  
-
+//Button Action forn viewGroups
 private class viewGroupsAction  implements ActionListener 
 { 
     public void actionPerformed(ActionEvent e) 
@@ -205,7 +222,7 @@ private class viewGroupsAction  implements ActionListener
     }
 }  
 
-
+// ButtonAction to imoplement Companion Finder and View Trips to find Companions
     
     private class ViewAction implements ActionListener 
 { 
@@ -217,13 +234,15 @@ private class viewGroupsAction  implements ActionListener
     }
 
 }
+// Create Group Page Action. Calls the interface for Create Group Page
 private class createGroupAction implements ActionListener 
 { 
     public void actionPerformed(ActionEvent e) 
     {
        new craeteGroupPage();
     }
-}  
+} 
+//Logg  off retruns to sign In
 private class logOffActionListener implements ActionListener
 {
    public void actionPerformed(ActionEvent e)
@@ -253,14 +272,7 @@ private class SearchActionListener implements ActionListener {
             }
         }
         
-public void displayUserProfile(String firstName, String lastName, String email, int age, String bio, String address) {
-    firstNameLabel.setText("Name: " + firstName);
-    lastNameLabel.setText("Name: " + lastName);
-    emailLabel.setText("Email: " + email);
-    ageLabel.setText("Age: " + age);
-    bioLabel.setText("Bio: " + bio);
-    addressLabel.setText("Address: " + address);
-}
+
 public void displayProfilePicture(ImageIcon profilePicture) 
 {
     profilePictureLabel.setIcon(profilePicture);

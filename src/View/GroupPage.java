@@ -1,3 +1,5 @@
+//Group Homepage to view the posts made by users
+
 package View;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -27,7 +29,7 @@ public class GroupPage extends JFrame  {
         this.groupname = groupname;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-
+//Components
         // Initialize components
         oldPostsTextArea = new JTextArea(10, 40);
         newPostTextArea = new JTextArea(5, 40);
