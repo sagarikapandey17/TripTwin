@@ -1,3 +1,4 @@
+// the class defines the interface to enable a user to provide his feedback to another user.This Action is only visible for user to other users and not themseleves
 package View;
 import javax.swing.*;
 
@@ -14,7 +15,7 @@ public class UserRatingGUI extends JFrame
     private JButton rateButton;
 
     private String ratedUsername;
-
+//defin eGUI Components for feedback and rating
     public UserRatingGUI(String ratedUsername) 
     {
         this.ratedUsername = ratedUsername;
@@ -36,7 +37,7 @@ public class UserRatingGUI extends JFrame
         inputPanel.add(feedbackScrollPane);
 
         mainPanel.add(inputPanel, BorderLayout.CENTER);
-
+// call JDBC code to insert the entreed rating for the user into DB
         rateButton = new JButton("Rate");
         rateButton.addActionListener(new ActionListener() {
             @Override
